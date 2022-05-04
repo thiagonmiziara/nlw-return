@@ -1,7 +1,7 @@
-import Widget from "./components/Widget";
+import WidgetButton from "./components/WidgetButton";
 
 const App = () => {
-  return <Widget />;
+  return <WidgetButton />;
 };
 
 export default App;
