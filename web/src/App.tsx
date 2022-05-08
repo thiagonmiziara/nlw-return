@@ -1,12 +1,7 @@
 import { WidgetButton } from "./components/WidgetButton";
-import { SnackbarProvider } from "notistack";
 
 const App = () => {
-  return (
-    <SnackbarProvider>
-      <WidgetButton />
-    </SnackbarProvider>
-  );
+  return <WidgetButton />;
 };
 
 export default App;
