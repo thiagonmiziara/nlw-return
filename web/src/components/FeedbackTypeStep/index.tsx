@@ -1,1 +1,1 @@
-export { default } from "./FeedbackTypeStep";
+export { default as FeedbackTypeStep } from "./FeedbackTypeStep";

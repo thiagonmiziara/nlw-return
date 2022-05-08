@@ -1,1 +1,1 @@
-export { default } from "./WidgetButton";
+export { default as WidgetButton } from "./WidgetButton";

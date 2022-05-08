@@ -1,4 +1,4 @@
-import WidgetButton from "./components/WidgetButton";
+import { WidgetButton } from "./components/WidgetButton";
 
 const App = () => {
   return <WidgetButton />;

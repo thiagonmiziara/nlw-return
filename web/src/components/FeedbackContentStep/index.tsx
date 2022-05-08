@@ -1,1 +1,1 @@
-export { default } from "./FeedbackContentStep";
+export { default as FeedbackContentStep } from "./FeedbackContentStep";

@@ -1,4 +1,4 @@
-import CloseButton from "../CloseButton";
+import { CloseButton } from "../CloseButton";
 import successImage from "../../../src/assets/success.svg";
 
 interface IFeedbackSuccessStepProps {

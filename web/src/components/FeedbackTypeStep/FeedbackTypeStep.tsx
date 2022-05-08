@@ -1,7 +1,7 @@
 import React from "react";
 import { feedbackTypes } from "../../constants/feedbackTypes";
 import { TFeedbackTypes } from "../../containers/widgetForm/WidgetForm";
-import CloseButton from "../CloseButton";
+import { CloseButton } from "../CloseButton";
 
 interface IFeedbackTypeStepProps {
   onFeedbackTypeChanged: (feedbackType: TFeedbackTypes) => void;

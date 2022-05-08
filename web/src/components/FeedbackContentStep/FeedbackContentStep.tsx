@@ -1,9 +1,11 @@
-import { ArrowLeft } from "phosphor-react";
 import { useState } from "react";
+import { ArrowLeft } from "phosphor-react";
 import { feedbackTypes } from "../../constants/feedbackTypes";
 import { TFeedbackTypes } from "../../containers/widgetForm/WidgetForm";
-import CloseButton from "../CloseButton";
-import ScreenshotButton from "../ScreenshotButton";
+import { CloseButton } from "../CloseButton";
+import { ScreenshotButton } from "../ScreenshotButton";
+import { postFeedback } from "../../services/postFeedback";
+import { Loading } from "../Loading";
 
 interface IFeedbackContentStepProps {
   feedbackType: TFeedbackTypes;
@@ -18,12 +20,18 @@ const FeedbackContentStep = ({
 }: IFeedbackContentStepProps) => {
   const [screenshot, setScreenshot] = useState<string | null>(null);
   const [comment, setComment] = useState("");
+  const [isSendingFeedback, setIsSendingFeedback] = useState(false);
   const feedbackTypeInfo = feedbackTypes[feedbackType];
 
   function handleSubmitFeedback(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log("screenshot", screenshot);
-    console.log("comment", comment);
+    setIsSendingFeedback(true);
+    postFeedback({
+      type: feedbackType,
+      comment,
+      screenshot,
+    });
+    setIsSendingFeedback(false);
     onFeedbackSent();
   }
 
@@ -64,9 +72,9 @@ const FeedbackContentStep = ({
           <button
             type='submit'
             className='p-2 bg-brand-500 rounded-md border-transparent flex-1 flex justify-center items-center text-sm hover:bg-brand-300 focus:outline-none transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-brand-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-brand-500'
-            disabled={comment.length === 0}
+            disabled={comment.length === 0 || isSendingFeedback}
           >
-            Enviar Feedback
+            {isSendingFeedback ? <Loading /> : "Enviar Feedback"}
           </button>
         </footer>
       </form>

@@ -1,1 +1,1 @@
-export { default } from "./ScreenshotButton";
+export { default as ScreenshotButton } from "./ScreenshotButton";
