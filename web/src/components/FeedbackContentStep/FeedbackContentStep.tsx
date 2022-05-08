@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSnackbar } from "notistack";
 import { ArrowLeft } from "phosphor-react";
 import { feedbackTypes } from "../../constants/feedbackTypes";
 import { TFeedbackTypes } from "../../containers/widgetForm/WidgetForm";
@@ -13,26 +14,32 @@ interface IFeedbackContentStepProps {
   onFeedbackSent: () => void;
 }
 
-const FeedbackContentStep = ({
-  feedbackType,
-  onFeedbackRestartRequested,
-  onFeedbackSent,
-}: IFeedbackContentStepProps) => {
+const FeedbackContentStep = (props: IFeedbackContentStepProps) => {
+  const { feedbackType, onFeedbackRestartRequested, onFeedbackSent } = props;
+
   const [screenshot, setScreenshot] = useState<string | null>(null);
   const [comment, setComment] = useState("");
   const [isSendingFeedback, setIsSendingFeedback] = useState(false);
+
+  const { enqueueSnackbar } = useSnackbar();
   const feedbackTypeInfo = feedbackTypes[feedbackType];
 
   function handleSubmitFeedback(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSendingFeedback(true);
-    postFeedback({
-      type: feedbackType,
-      comment,
-      screenshot,
-    });
-    setIsSendingFeedback(false);
-    onFeedbackSent();
+    try {
+      postFeedback({
+        type: feedbackType,
+        comment,
+        screenshot,
+      });
+      enqueueSnackbar("Feedback enviado com sucesso!", { variant: "success" });
+    } catch (err) {
+      enqueueSnackbar("Erro ao enviar feedback!", { variant: "error" });
+    } finally {
+      setIsSendingFeedback(false);
+      onFeedbackSent();
+    }
   }
 
   return (
